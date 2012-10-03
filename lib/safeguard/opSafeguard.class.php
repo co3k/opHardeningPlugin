@@ -11,6 +11,11 @@ abstract class opSafeguard implements opSafeguardInterface
     $this->configure($configuraitons);
   }
 
+  public function isAvailable()
+  {
+    return true;
+  }
+
   public function getInstance()
   {
     return $this->context;

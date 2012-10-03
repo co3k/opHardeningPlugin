@@ -8,11 +8,7 @@ class opHardeningPluginConfiguration extends sfPluginConfiguration
 
     $this->appendSafeguard('op_action.post_execute', 'disable_content_sniffing');
     $this->appendSafeguard('op_action.post_execute', 'deny_non_same_origin_frame');
-
-    if (sfConfig::get('sf_app') !== 'pc_backend')
-    {
-      $this->dispatcher->connect('op_action.post_execute', array($this, 'enableXSSFilterWithBlock'));
-    }
+    $this->appendSafeguard('op_action.post_execute', 'enable_XSS_filter_with_block');
 
     if (sfConfig::get('sf_app') !== 'mobile_frontend')
     {
@@ -32,7 +28,10 @@ class opHardeningPluginConfiguration extends sfPluginConfiguration
     $className = 'op'.sfInflector::camelize($safeguardName).'Safeguard';
 
     $safeguard = new $className($context, sfConfig::getAll());
-    $this->dispatcher->connect($eventName, array($safeguard, 'apply'));
+    if ($safeguard->isAvailable())
+    {
+      $this->dispatcher->connect($eventName, array($safeguard, 'apply'));
+    }
   }
 
   protected function getResponse()
@@ -51,11 +50,6 @@ class opHardeningPluginConfiguration extends sfPluginConfiguration
 
   public function disableContentSniffing($event)
   {
-  }
-
-  public function enableXSSFilterWithBlock($event)
-  {
-    $this->getResponse()->setHttpHeader('X-XSS-Protection', '1; mode=block', true);
   }
 
   public function forceEncodingToUTF8($event)
