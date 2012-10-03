@@ -6,7 +6,8 @@ class opHardeningPluginConfiguration extends sfPluginConfiguration
   {
     $this->setDefaultToHttpOnlySessionCookie();
 
-    $this->dispatcher->connect('op_action.post_execute', array($this, 'disableContentSniffing'));
+    $this->appendSafeguard('op_action.post_execute', 'disable_content_sniffing');
+
     $this->dispatcher->connect('op_action.post_execute', array($this, 'allowSameOriginFrame'));
 
     if (sfConfig::get('sf_app') !== 'pc_backend')
@@ -20,6 +21,19 @@ class opHardeningPluginConfiguration extends sfPluginConfiguration
     }
 
     $this->dispatcher->connect('response.filter_content', array($this, 'addJSONHijackingProtection'));
+  }
+
+  protected function appendSafeguard($eventName, $safeguardName, sfContext $context = null)
+  {
+    if (!$context && sfContext::hasInstance())
+    {
+      $context = sfContext::getInstance();
+    }
+
+    $className = 'op'.sfInflector::camelize($safeguardName).'Safeguard';
+
+    $safeguard = new $className($context, sfConfig::getAll());
+    $this->dispatcher->connect($eventName, array($safeguard, 'apply'));
   }
 
   protected function getResponse()
@@ -38,7 +52,6 @@ class opHardeningPluginConfiguration extends sfPluginConfiguration
 
   public function disableContentSniffing($event)
   {
-    $this->getResponse()->setHttpHeader('X-Content-Type-Options', 'nosniff', true);
   }
 
   public function allowSameOriginFrame($event)
