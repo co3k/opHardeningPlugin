@@ -7,8 +7,7 @@ class opHardeningPluginConfiguration extends sfPluginConfiguration
     $this->setDefaultToHttpOnlySessionCookie();
 
     $this->appendSafeguard('op_action.post_execute', 'disable_content_sniffing');
-
-    $this->dispatcher->connect('op_action.post_execute', array($this, 'allowSameOriginFrame'));
+    $this->appendSafeguard('op_action.post_execute', 'deny_non_same_origin_frame');
 
     if (sfConfig::get('sf_app') !== 'pc_backend')
     {
@@ -52,11 +51,6 @@ class opHardeningPluginConfiguration extends sfPluginConfiguration
 
   public function disableContentSniffing($event)
   {
-  }
-
-  public function allowSameOriginFrame($event)
-  {
-    $this->getResponse()->setHttpHeader('X-Frame-Options', 'SAMEORIGIN', true);
   }
 
   public function enableXSSFilterWithBlock($event)
