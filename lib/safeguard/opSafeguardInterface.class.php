@@ -6,5 +6,5 @@ interface opSafeguardInterface
 
   function isAvailable();
 
-  function apply(sfEvent $event);
+  function apply(sfEvent $event, $value = null);
 }

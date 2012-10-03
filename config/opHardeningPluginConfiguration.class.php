@@ -10,8 +10,7 @@ class opHardeningPluginConfiguration extends sfPluginConfiguration
     $this->appendSafeguard('op_action.post_execute', 'deny_non_same_origin_frame');
     $this->appendSafeguard('op_action.post_execute', 'enable_XSS_filter_with_block');
     $this->appendSafeguard('context.load_factories', 'force_encoding_to_UTF8');
-
-    $this->dispatcher->connect('response.filter_content', array($this, 'addJSONHijackingProtection'));
+    $this->appendSafeguard('response.filter_content', 'JSON_hijacking_protection');
   }
 
   protected function appendSafeguard($eventName, $safeguardName, sfContext $context = null)
@@ -46,46 +45,5 @@ class opHardeningPluginConfiguration extends sfPluginConfiguration
 
   public function disableContentSniffing($event)
   {
-  }
-
-  /**
-   * Add protection from JSON Hijacking attack
-   *
-   * Logic of this method is based on Amon2::Plugin::Web::JSON
-   * implementation by Tokuhiro Matsuno.
-   *
-   * You can get Amon2 from https://github.com/tokuhirom/Amon/
-   *
-   * Amon2 is licensed by http://dev.perl.org/licenses/ but any
-   * code of this method are not from Amon2.
-   */
-  public function addJSONHijackingProtection($event, $content)
-  {
-    $response = $event->getSubject();
-
-    if (false === strpos($response->getContentType(), 'application/json'))
-    {
-      return $content;
-    }
-
-    if (!sfContext::hasInstance())
-    {
-      return $content;
-    }
-
-    if ($this->needToProtectFromJSONHijack(sfContext::getInstance()->getRequest()))
-    {
-      $content = json_encode('Your request is denied. Please retry to request with "X-Requested-With" header.');
-    }
-
-    return $content;
-  }
-
-  public function needToProtectFromJSONHijack($request)
-  {
-    $pathArray = $request->getPathInfoArray();
-    $userAgent = isset($pathArray['USER_AGENT']) ? $pathArray['USER_AGENT'] : '';
-
-    return (!$request->isXmlHttpRequest() && stripos($userAgent, 'android') && $request->getMethod() === sfRequest::GET);
   }
 }

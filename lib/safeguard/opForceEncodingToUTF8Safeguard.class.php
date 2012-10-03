@@ -11,7 +11,7 @@ class opForceEncodingToUTF8Safeguard extends opSafeguard
     return (sfConfig::get('sf_app') !== 'mobile_frontend');
   }
 
-  public function apply(sfEvent $event)
+  public function apply(sfEvent $event, $value = null)
   {
     $request = $event->getSubject()->getRequest();
 
