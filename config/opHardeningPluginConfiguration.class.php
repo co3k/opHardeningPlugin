@@ -9,11 +9,7 @@ class opHardeningPluginConfiguration extends sfPluginConfiguration
     $this->appendSafeguard('op_action.post_execute', 'disable_content_sniffing');
     $this->appendSafeguard('op_action.post_execute', 'deny_non_same_origin_frame');
     $this->appendSafeguard('op_action.post_execute', 'enable_XSS_filter_with_block');
-
-    if (sfConfig::get('sf_app') !== 'mobile_frontend')
-    {
-      $this->dispatcher->connect('context.load_factories', array($this, 'forceEncodingToUTF8'));
-    }
+    $this->appendSafeguard('context.load_factories', 'force_encoding_to_UTF8');
 
     $this->dispatcher->connect('response.filter_content', array($this, 'addJSONHijackingProtection'));
   }
@@ -50,16 +46,6 @@ class opHardeningPluginConfiguration extends sfPluginConfiguration
 
   public function disableContentSniffing($event)
   {
-  }
-
-  public function forceEncodingToUTF8($event)
-  {
-    $request = $event->getSubject()->getRequest();
-
-    if ($request instanceof opWebRequest)
-    {
-      $request->convertEncodingForInput('UTF-8');
-    }
   }
 
   /**
