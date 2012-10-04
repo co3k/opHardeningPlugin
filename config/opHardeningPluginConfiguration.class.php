@@ -11,6 +11,7 @@ class opHardeningPluginConfiguration extends sfPluginConfiguration
     $this->appendSafeguard('op_action.post_execute', 'enable_XSS_filter_with_block');
     $this->appendSafeguard('context.load_factories', 'force_encoding_to_UTF8');
     $this->appendSafeguard('response.filter_content', 'JSON_hijacking_protection');
+    $this->appendSafeguard('response.filter_content', 'escape_html_in_JSON');
   }
 
   protected function appendSafeguard($eventName, $safeguardName, sfContext $context = null)
