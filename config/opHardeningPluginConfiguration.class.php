@@ -4,8 +4,7 @@ class opHardeningPluginConfiguration extends sfPluginConfiguration
 {
   public function initialize()
   {
-    $this->setDefaultToHttpOnlySessionCookie();
-
+    $this->appendSafeguard(null, 'use_http_only_session_cookie');
     $this->appendSafeguard('op_action.post_execute', 'disable_content_sniffing');
     $this->appendSafeguard('op_action.post_execute', 'deny_non_same_origin_frame');
     $this->appendSafeguard('op_action.post_execute', 'enable_XSS_filter_with_block');
@@ -26,22 +25,20 @@ class opHardeningPluginConfiguration extends sfPluginConfiguration
     $safeguard = new $className($context, sfConfig::getAll());
     if ($safeguard->isAvailable())
     {
-      $this->dispatcher->connect($eventName, array($safeguard, 'apply'));
+      if ($eventName)
+      {
+        $this->dispatcher->connect($eventName, array($safeguard, 'apply'));
+      }
+      else
+      {
+        $safeguard->apply(new sfEvent(null, ''));
+      }
     }
   }
 
   protected function getResponse()
   {
     return sfContext::getInstance()->getResponse();
-  }
-
-  public function setDefaultToHttpOnlySessionCookie()
-  {
-    $current = session_get_cookie_params();
-    if (empty($current['httponly']))
-    {
-      session_set_cookie_params($current['lifetime'], $current['path'], $current['domain'], $current['secure'], true /* HttpOnly */);
-    }
   }
 
   public function disableContentSniffing($event)
