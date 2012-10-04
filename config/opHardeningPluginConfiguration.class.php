@@ -35,13 +35,4 @@ class opHardeningPluginConfiguration extends sfPluginConfiguration
       }
     }
   }
-
-  protected function getResponse()
-  {
-    return sfContext::getInstance()->getResponse();
-  }
-
-  public function disableContentSniffing($event)
-  {
-  }
 }
