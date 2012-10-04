@@ -37,7 +37,7 @@ class opJSONHijackingProtectionSafeguard extends opSafeguard
       $content = json_encode('Your request is denied. Please retry to request with "X-Requested-With" header.');
     }
 
-    return $content;
+    return $this->escapeToAvoidJSONHijackWithUTF7($content);
   }
 
   public function needToProtectFromJSONHijack($request)
@@ -46,5 +46,15 @@ class opJSONHijackingProtectionSafeguard extends opSafeguard
     $userAgent = isset($pathArray['USER_AGENT']) ? $pathArray['USER_AGENT'] : '';
 
     return (!$request->isXmlHttpRequest() && stripos($userAgent, 'android') && $request->getMethod() === sfRequest::GET);
+  }
+
+  /**
+   * Escape "+" to avoid JSON Hijacking Attack with UTF-7
+   *
+   * See: https://www.blackhat.com/presentations/bh-jp-08/bh-jp-08-Hasegawa/BlackHat-japan-08-Hasegawa-Char-Encoding.pdf
+   */
+  protected function escapeToAvoidJSONHijackWithUTF7($string)
+  {
+    return str_replace('+', '\u002b', $string);
   }
 }

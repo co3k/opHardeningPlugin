@@ -61,3 +61,12 @@ $_SERVER['HTTP_X_REQUESTED_WITH'] = '';
 $result = $safeguard->apply(new sfEvent($response, 'whatever.event_name'), $response->getContent());
 
 $t->is($result, 'DUMMY', 'Returns raw response if the request with no Android default browser');
+
+// --
+
+$vector = '+ACIAfQA7-var a+AD0AewAi-'; // '"} var a={"' in UTF-7
+
+$response->setContent($vector);
+$result = $safeguard->apply(new sfEvent($response, 'whatever.event_name'), $response->getContent());
+
+$t->is($result, '\u002bACIAfQA7-var a\u002bAD0AewAi-', '"+" are escaped to unicode-escape-sequence ("\u002b")');
