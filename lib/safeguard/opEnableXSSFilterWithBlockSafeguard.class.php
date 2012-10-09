@@ -2,10 +2,6 @@
 
 class opEnableXSSFilterWithBlockSafeguard extends opSafeguard
 {
-  public function configure($configurations = array())
-  {
-  }
-
   public function isAvailable()
   {
     return (sfConfig::get('sf_app') !== 'pc_backend');

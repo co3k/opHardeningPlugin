@@ -7,4 +7,6 @@ interface opSafeguardInterface
   function isAvailable();
 
   function apply(sfEvent $event, $value = null);
+
+  function getConfig();
 }

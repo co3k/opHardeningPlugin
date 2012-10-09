@@ -2,10 +2,6 @@
 
 class opEscapeHtmlInJSONSafeguard extends opSafeguard
 {
-  public function configure($configurations = array())
-  {
-  }
-
   public function apply(sfEvent $event, $value = null)
   {
     $response = $event->getSubject();

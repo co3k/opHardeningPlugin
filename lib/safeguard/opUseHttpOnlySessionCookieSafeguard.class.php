@@ -2,10 +2,6 @@
 
 class opUseHttpOnlySessionCookieSafeguard extends opSafeguard
 {
-  public function configure($configurations = array())
-  {
-  }
-
   public function apply(sfEvent $event, $value = null)
   {
     $current = session_get_cookie_params();

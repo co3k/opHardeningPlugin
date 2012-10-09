@@ -20,10 +20,12 @@ class opHardeningPluginConfiguration extends sfPluginConfiguration
       $context = sfContext::getInstance();
     }
 
+    $configurations = $this->extractSafeguardConfigurations($safeguardName, sfConfig::get('op_hardening', array()));
+
     $className = 'op'.sfInflector::camelize($safeguardName).'Safeguard';
 
-    $safeguard = new $className($context, sfConfig::getAll());
-    if ($safeguard->isAvailable())
+    $safeguard = new $className($context, $configurations);
+    if ($this->checkRegisterableSafeguard($safeguard))
     {
       if ($eventName)
       {
@@ -34,5 +36,20 @@ class opHardeningPluginConfiguration extends sfPluginConfiguration
         $safeguard->apply(new sfEvent(null, ''));
       }
     }
+  }
+
+  protected function checkRegisterableSafeguard(opSafeguardInterface $safeguard)
+  {
+    return ($safeguard->isAvailable() && $safeguard->getConfig()->get('enabled', true));
+  }
+
+  protected function extractSafeguardConfigurations($safeguardName, array $configurations = array())
+  {
+    if (empty($configurations[$safeguardName]))
+    {
+      return array();
+    }
+
+    return $configurations[$safeguardName];
   }
 }
