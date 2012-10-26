@@ -1,6 +1,14 @@
 <?php
 
 /**
+ * This file is part of the opHardeningPlugin package.
+ * (c) Kousuke Ebihara (http://co3k.org/)
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file and the NOTICE file that were distributed with this source code.
+ */
+
+/**
  * Add protection from JSON Hijacking attack
  *
  * Logic of this method is based on Amon2::Plugin::Web::JSON
