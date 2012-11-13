@@ -36,8 +36,32 @@ opHardeningPlugin -- OpenPNE 3 に対して追加のセキュリティ対策を�
 1-1. インストール
 -----------------
 
+お使いの plugins ディレクトリに opHardeningPlugin というディレクトリを作成し、本プラグインのすべてのファイル群がそのディレクトリに格納されているようにしてください ( ``opPlugin:install`` コマンドによってソースコードを設置済みの場合は、本作業は不要です)。
+
+ファイルを設置した後、以下のコマンドを実行してください::
+
+    $ ./symfony openpne:migrate --target=opHardeningPlugin
+
 1-2. 設定
 ---------
+
+本プラグインによって適用される各セキュリティ対策は、それぞれ OpenPNE.yml によって設定をおこなうことができます。
+
+たとえば ``JSON_hijacking_protection`` というセキュリティ対策を無効にしたい場合、以下のような記述を OpenPNE.yml に追加します (インデントは半角スペース 2 つによっておこなってください。スペースではなくタブ文字を使用したり、 1 インデントあたりのスペースの数に誤りがあった場合は文法エラーとなります)::
+
+    hardening:
+      JSON_hijacking_protection:
+        enabled: false
+
+``JSON_hijacking_protection`` の他に、 ``escape_html_in_JSON`` を無効にしたくなった場合は、追記部分を以下のように変更します::
+
+    hardening:
+      JSON_hijacking_protection:
+        enabled: false
+      escape_html_in_JSON:
+        enabled: false
+
+どのようなセキュリティ対策が存在し、どのような設定をサポートしているかについては、「2. 各セキュリティ対策毎の詳細」の章を参照してください。
 
 2. 各セキュリティ対策毎の詳細
 =============================
