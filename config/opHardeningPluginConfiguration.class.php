@@ -12,13 +12,21 @@ class opHardeningPluginConfiguration extends sfPluginConfiguration
 {
   public function initialize()
   {
-    $this->appendSafeguard(null, 'use_http_only_session_cookie');
-    $this->appendSafeguard('op_action.post_execute', 'disable_content_sniffing');
-    $this->appendSafeguard('op_action.post_execute', 'deny_non_same_origin_frame');
-    $this->appendSafeguard('op_action.post_execute', 'enable_XSS_filter_with_block');
-    $this->appendSafeguard('context.load_factories', 'force_encoding_to_UTF8');
-    $this->appendSafeguard('response.filter_content', 'JSON_hijacking_protection');
-    $this->appendSafeguard('response.filter_content', 'escape_html_in_JSON');
+    $this->dispatcher->connect('context.load_factories', array($this, 'appendDefaultSafeguards'));
+  }
+
+  public function appendDefaultSafeguards(sfEvent $event)
+  {
+    $context = $event->getSubject();
+
+    $this->appendSafeguard(null, 'use_http_only_session_cookie', $context);
+    $this->appendSafeguard(null, 'force_encoding_to_UTF8', $context);
+
+    $this->appendSafeguard('op_action.post_execute', 'disable_content_sniffing', $context);
+    $this->appendSafeguard('op_action.post_execute', 'deny_non_same_origin_frame', $context);
+    $this->appendSafeguard('op_action.post_execute', 'enable_XSS_filter_with_block', $context);
+    $this->appendSafeguard('response.filter_content', 'JSON_hijacking_protection', $context);
+    $this->appendSafeguard('response.filter_content', 'escape_html_in_JSON', $context);
   }
 
   protected function appendSafeguard($eventName, $safeguardName, sfContext $context = null)

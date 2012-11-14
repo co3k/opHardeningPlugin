@@ -17,7 +17,7 @@ class opForceEncodingToUTF8Safeguard extends opSafeguard
 
   public function apply(sfEvent $event, $value = null)
   {
-    $request = $event->getSubject()->getRequest();
+    $request = $this->context->getRequest();
 
     if ($request instanceof opWebRequest)
     {

@@ -27,11 +27,12 @@ class MyClass
 
 $t = new lime_test(null, new lime_output_color());
 
-$configuration = ProjectConfiguration::getApplicationConfiguration('pc_frontend', 'test', true);
-$context = sfContext::createInstance($configuration);
-
 $_POST['example'] = "e\xf0xampl\xe0e";
-$request = new opWebRequest(new sfEventDispatcher());
+
+$configuration = ProjectConfiguration::getApplicationConfiguration('pc_frontend', 'test', true);
+
+$context = sfContext::createInstance($configuration);
+$context['request'] = $request = new opWebRequest(new sfEventDispatcher());
 
 // 
 
