@@ -1,0 +1,11 @@
+<?xml version="1.0" ?>
+<xliff version="1.0">
+  <file orginal="global" source-language="en" datatype="plaintext">
+    <body>
+      <trans-unit id="">
+        <source>Password must be at least 6 characters long.</source>
+        <target>パスワードは6文字以上入力してください。</target>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>

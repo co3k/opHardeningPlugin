@@ -21,6 +21,7 @@ class opHardeningPluginConfiguration extends sfPluginConfiguration
 
     $this->appendSafeguard(null, 'use_http_only_session_cookie', $context);
     $this->appendSafeguard(null, 'force_encoding_to_UTF8', $context);
+    $this->appendSafeguard(null, 'allow_complex_password', $context);
 
     $this->appendSafeguard('op_action.post_execute', 'disable_content_sniffing', $context);
     $this->appendSafeguard('op_action.post_execute', 'deny_non_same_origin_frame', $context);
