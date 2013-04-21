@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<package packagerversion="1.9.0" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0
+    http://pear.php.net/dtd/tasks-1.0.xsd
+    http://pear.php.net/dtd/package-2.0
+    http://pear.php.net/dtd/package-2.0.xsd">
+ <name>opHardeningPlugin</name>
+ <channel>plugins.openpne.jp</channel>
+ <summary>OpenPNE 3 に対して追加のセキュリティ対策を適用するプラグイン</summary>
+ <description>このプラグインは、現状の OpenPNE 3 に不足している各種セキュリティ対策を透過的に施すプラグインです。
+
+それぞれの対策について適用の有無が選択できるほか、場合によっては適用内容を細かく制御することができます。
+
+詳細については README にて解説しているのでこちらをご覧ください。
+https://github.com/ebihara/opHardeningPlugin/blob/master/README.rst</description>
+ <lead>
+  <name>Kousuke Ebihara</name>
+  <user>ebihara</user>
+  <email />
+  <active>yes</active>
+ </lead>
+ <date>2013-04-22</date>
+ <time>00:14:54</time>
+ <version>
+  <release>1.0.0</release>
+  <api>1.0.0</api>
+ </version>
+ <stability>
+  <release>stable</release>
+  <api>stable</api>
+ </stability>
+ <license>Apache</license>
+ <notes>
+First stable release.
+ </notes>
+ <contents>
+  <dir baseinstalldir="/" name="/">
+   <file baseinstalldir="/" md5sum="ed94fb833762aa7e979edcdb882be966" name="apps/mobile_frontend/i18n/messages.ja.xml" role="data" />
+   <file baseinstalldir="/" md5sum="9180e9080a27f549bf80cd8f6a8d8d66" name="apps/pc_backend/i18n/messages.ja.xml" role="data" />
+   <file baseinstalldir="/" md5sum="9180e9080a27f549bf80cd8f6a8d8d66" name="apps/pc_frontend/i18n/messages.ja.xml" role="data" />
+   <file baseinstalldir="/" md5sum="2691dc4a8c33c999d56cf881bd405af2" name="config/opHardeningPluginConfiguration.class.php" role="data" />
+   <file baseinstalldir="/" md5sum="be4f4efe0a758c80e1b46aac96b457da" name="lib/safeguard/opAddJSONHijackingProtectionSafeguard.class.php" role="data" />
+   <file baseinstalldir="/" md5sum="73c473ef0df059ac23b0f942033c4295" name="lib/safeguard/opAllowComplexPasswordSafeguard.class.php" role="data" />
+   <file baseinstalldir="/" md5sum="dbcf67f50af649d97fbbba56d78fed7b" name="lib/safeguard/opDenyNonSameOriginFrameSafeguard.class.php" role="data" />
+   <file baseinstalldir="/" md5sum="32ba1d9ba24f83c134370017973f74b0" name="lib/safeguard/opDisableContentSniffingSafeguard.class.php" role="data" />
+   <file baseinstalldir="/" md5sum="b92de964f85ca57905dd1a4a05332cc1" name="lib/safeguard/opEnableXSSFilterWithBlockSafeguard.class.php" role="data" />
+   <file baseinstalldir="/" md5sum="8e4a53a9deb35f5584aa2d1891077ac8" name="lib/safeguard/opEscapeHtmlInJSONSafeguard.class.php" role="data" />
+   <file baseinstalldir="/" md5sum="aa96be723a1d63099d620e0d537b188c" name="lib/safeguard/opForceEncodingToUTF8Safeguard.class.php" role="data" />
+   <file baseinstalldir="/" md5sum="6b785480ad641a14ee6be0e558bf0f90" name="lib/safeguard/opSafeguard.class.php" role="data" />
+   <file baseinstalldir="/" md5sum="49186656f4fe9e8dfb15e42e9d1ccd4e" name="lib/safeguard/opSafeguardInterface.class.php" role="data" />
+   <file baseinstalldir="/" md5sum="ee2fe105616470dbcac88d06350a0dd2" name="lib/safeguard/opUseHttpOnlySessionCookieSafeguard.class.php" role="data" />
+   <file baseinstalldir="/" md5sum="2146cb7f70f4340b0f8d3bcaa0738517" name="test/bootstrap/database.php" role="data" />
+   <file baseinstalldir="/" md5sum="27cab6d2f261d17c86e9f59a57a2f446" name="test/bootstrap/functional.php" role="data" />
+   <file baseinstalldir="/" md5sum="40e546673980bc35efda3d81b1ab748f" name="test/bootstrap/unit.php" role="data" />
+   <file baseinstalldir="/" md5sum="1f9eb58f8bb9c99282c5531749d24835" name="test/unit/config/opHardeningPluginConfigurationTest.php" role="data" />
+   <file baseinstalldir="/" md5sum="fc667f90bd9a59637b2adda675d4b55b" name="test/unit/safeguard/opAddJSONHijackingProtectionSafeguardTest.php" role="data" />
+   <file baseinstalldir="/" md5sum="a23d12e4f6ade327924f0338c02965f3" name="test/unit/safeguard/opAllowComplexPasswordSafeguardTest.php" role="data" />
+   <file baseinstalldir="/" md5sum="7125b1e97c6c1468b4c807cd6d9edb16" name="test/unit/safeguard/opDenyNonSameOriginFrameSafeguardTest.php" role="data" />
+   <file baseinstalldir="/" md5sum="b5a7a38bcb8d55a750800924e34faaf2" name="test/unit/safeguard/opDisableContentSniffingSafeguardTest.php" role="data" />
+   <file baseinstalldir="/" md5sum="7650e93bc30e9651ac33d5b1ea026a7d" name="test/unit/safeguard/opEnableXSSFilterWithBlockSafeguardTest.php" role="data" />
+   <file baseinstalldir="/" md5sum="3d53684572af5237407f363a104ca224" name="test/unit/safeguard/opEscapeHtmlInJSONSafeguard.php" role="data" />
+   <file baseinstalldir="/" md5sum="fcaa18437f93bc8a74612e2c84a28f0b" name="test/unit/safeguard/opForceEncodingToUTF8SafeguardTest.php" role="data" />
+   <file baseinstalldir="/" md5sum="a59cb392d8fad04859ea06228b63447e" name="test/unit/safeguard/opUseHttpOnlySessionCookieSafeguardTest.php" role="data" />
+   <file baseinstalldir="/" md5sum="86d3f3a95c324c9479bd8986968f4327" name="LICENSE" role="data" />
+   <file baseinstalldir="/" md5sum="e5eb6f85a44a6cea5c7ef9100ee7fe53" name="README.rst" role="data" />
+  </dir>
+ </contents>
+ <dependencies>
+  <required>
+   <php>
+    <min>5.2.3</min>
+   </php>
+   <pearinstaller>
+    <min>1.4.0</min>
+   </pearinstaller>
+  </required>
+ </dependencies>
+ <phprelease />
+ <changelog>
+  <release>
+   <version>
+    <release>1.0.0</release>
+    <api>1.0.0</api>
+   </version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api>
+   </stability>
+   <date>2013-04-22</date>
+   <license>Apache</license>
+   <notes>
+First stable release.
+   </notes>
+  </release>
+ </changelog>
+</package>
