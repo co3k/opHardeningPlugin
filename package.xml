@@ -18,11 +18,11 @@ https://github.com/ebihara/opHardeningPlugin/blob/master/README.rst</description
   <email />
   <active>yes</active>
  </lead>
- <date>2013-04-22</date>
- <time>00:14:54</time>
+ <date>2013-05-19</date>
+ <time>19:08:09</time>
  <version>
-  <release>1.0.0</release>
-  <api>1.0.0</api>
+  <release>1.0.1</release>
+  <api>1.0.1</api>
  </version>
  <stability>
   <release>stable</release>
@@ -30,7 +30,8 @@ https://github.com/ebihara/opHardeningPlugin/blob/master/README.rst</description
  </stability>
  <license>Apache</license>
  <notes>
-First stable release.
+* Fix: Android 標準ブラウザ向け JSON ハイジャック対策が適用されていない (Safeguard of JSON Hijacking attack for Android default browser is not applied)
+* Add: IE 9 および IE 10 向けに VB スクリプトを利用して JSON の内容を外部から読み取ることができる問題への対策の追加 (Added safeguard of JSON Array Information Disclosure Vulnerability in IE 9 and IE 10)
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -38,7 +39,7 @@ First stable release.
    <file baseinstalldir="/" md5sum="9180e9080a27f549bf80cd8f6a8d8d66" name="apps/pc_backend/i18n/messages.ja.xml" role="data" />
    <file baseinstalldir="/" md5sum="9180e9080a27f549bf80cd8f6a8d8d66" name="apps/pc_frontend/i18n/messages.ja.xml" role="data" />
    <file baseinstalldir="/" md5sum="2691dc4a8c33c999d56cf881bd405af2" name="config/opHardeningPluginConfiguration.class.php" role="data" />
-   <file baseinstalldir="/" md5sum="be4f4efe0a758c80e1b46aac96b457da" name="lib/safeguard/opAddJSONHijackingProtectionSafeguard.class.php" role="data" />
+   <file baseinstalldir="/" md5sum="fd8628c8e6c373eceb6ab12d07d87ac1" name="lib/safeguard/opAddJSONHijackingProtectionSafeguard.class.php" role="data" />
    <file baseinstalldir="/" md5sum="73c473ef0df059ac23b0f942033c4295" name="lib/safeguard/opAllowComplexPasswordSafeguard.class.php" role="data" />
    <file baseinstalldir="/" md5sum="dbcf67f50af649d97fbbba56d78fed7b" name="lib/safeguard/opDenyNonSameOriginFrameSafeguard.class.php" role="data" />
    <file baseinstalldir="/" md5sum="32ba1d9ba24f83c134370017973f74b0" name="lib/safeguard/opDisableContentSniffingSafeguard.class.php" role="data" />
@@ -52,7 +53,7 @@ First stable release.
    <file baseinstalldir="/" md5sum="27cab6d2f261d17c86e9f59a57a2f446" name="test/bootstrap/functional.php" role="data" />
    <file baseinstalldir="/" md5sum="40e546673980bc35efda3d81b1ab748f" name="test/bootstrap/unit.php" role="data" />
    <file baseinstalldir="/" md5sum="1f9eb58f8bb9c99282c5531749d24835" name="test/unit/config/opHardeningPluginConfigurationTest.php" role="data" />
-   <file baseinstalldir="/" md5sum="fc667f90bd9a59637b2adda675d4b55b" name="test/unit/safeguard/opAddJSONHijackingProtectionSafeguardTest.php" role="data" />
+   <file baseinstalldir="/" md5sum="c2ee2bbe8dd044813649baf1d515189c" name="test/unit/safeguard/opAddJSONHijackingProtectionSafeguardTest.php" role="data" />
    <file baseinstalldir="/" md5sum="a23d12e4f6ade327924f0338c02965f3" name="test/unit/safeguard/opAllowComplexPasswordSafeguardTest.php" role="data" />
    <file baseinstalldir="/" md5sum="7125b1e97c6c1468b4c807cd6d9edb16" name="test/unit/safeguard/opDenyNonSameOriginFrameSafeguardTest.php" role="data" />
    <file baseinstalldir="/" md5sum="b5a7a38bcb8d55a750800924e34faaf2" name="test/unit/safeguard/opDisableContentSniffingSafeguardTest.php" role="data" />
@@ -61,7 +62,7 @@ First stable release.
    <file baseinstalldir="/" md5sum="fcaa18437f93bc8a74612e2c84a28f0b" name="test/unit/safeguard/opForceEncodingToUTF8SafeguardTest.php" role="data" />
    <file baseinstalldir="/" md5sum="a59cb392d8fad04859ea06228b63447e" name="test/unit/safeguard/opUseHttpOnlySessionCookieSafeguardTest.php" role="data" />
    <file baseinstalldir="/" md5sum="86d3f3a95c324c9479bd8986968f4327" name="LICENSE" role="data" />
-   <file baseinstalldir="/" md5sum="e5eb6f85a44a6cea5c7ef9100ee7fe53" name="README.rst" role="data" />
+   <file baseinstalldir="/" md5sum="e9e5df0e22e8b9ebaee2bdec6c82b693" name="README.rst" role="data" />
   </dir>
  </contents>
  <dependencies>
@@ -89,6 +90,22 @@ First stable release.
    <license>Apache</license>
    <notes>
 First stable release.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.0.1</release>
+    <api>1.0.1</api>
+   </version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api>
+   </stability>
+   <date>2013-05-19</date>
+   <license>Apache</license>
+   <notes>
+* Fix: Android 標準ブラウザ向け JSON ハイジャック対策が適用されていない (Safeguard of JSON Hijacking attack for Android default browser is not applied)
+* Add: IE 9 および IE 10 向けに VB スクリプトを利用して JSON の内容を外部から読み取ることができる問題への対策の追加 (Added safeguard of JSON Array Information Disclosure Vulnerability in IE 9 and IE 10)
    </notes>
   </release>
  </changelog>
