@@ -11,7 +11,7 @@
 /**
  * Add protection from JSON Hijacking attack
  *
- * Logic of this method is based on Amon2::Plugin::Web::JSON
+ * The original logic of this method is based on Amon2::Plugin::Web::JSON
  * implementation by Tokuhiro Matsuno.
  *
  * You can get Amon2 from https://github.com/tokuhirom/Amon/
@@ -44,11 +44,37 @@ class opJSONHijackingProtectionSafeguard extends opSafeguard
     return $this->escapeToAvoidJSONHijackWithUTF7($content);
   }
 
+  /**
+   * Check whether the browser environment needs protection for JSON Hijacking attack or not
+   *
+   * If ALL OF THE FOLLOWING CONDITIONS are true, this protection will be enabled
+   *
+   * - The request does NOT contain "X-Requested-With: XMLHttpRequest" header
+   * - The request is GET method
+   * - The user-agent value contains "android", "trident/5." or "trident 6." (case-insensitive)
+   *
+   * The followings are reasons why target user-agents are limited:
+   *
+   * - [1] Old versions of Android default browser allows a type of JSON Hijacking attack (using __defineSetter__)
+   * - [2] Microsoft Internet Explorer 9 and 10 allows a type of JSON Hijacking attack (using VB Script Error Handler)
+   *
+   *    See also:
+   *    - [1] : http://www.thespanner.co.uk/2011/05/30/json-hijacking/
+   *    - [2] : http://d.hatena.ne.jp/hasegawayosuke/20130517/p1 [in Japanese]
+   */
   public function needToProtectFromJSONHijack($request)
   {
-    $userAgent = $request->getHttpHeader('User-Agent');
+    if ($request->isXmlHttpRequest())
+    {
+      return false;
+    }
 
-    return (!$request->isXmlHttpRequest() && stripos($userAgent, 'android') && $request->getMethod() === sfRequest::GET);
+    if ($request->getMethod() !== sfRequest::GET)
+    {
+      return false;
+    }
+
+    return (bool)preg_match('#(?:android|trident/[56]\.)#i', $request->getHttpHeader('User-Agent'));
   }
 
   /**
