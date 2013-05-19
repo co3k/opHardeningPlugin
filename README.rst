@@ -12,6 +12,7 @@ opHardeningPlugin -- OpenPNE 3 に対して追加のセキュリティ対策を�
 現時点では導入するだけで以下の対策が有効になります。
 
 * Android 標準ブラウザにおける JSON ハイジャック攻撃への対策
+* Internet Explorer 9 および 10 においてクロスドメインの JSON の内容が読み取れる問題への対策
 * Internet Explorer 8 以前における JSON ハイジャック攻撃への対策
 * Internet Explorer 8 以前における JSON コンテンツを悪用した XSS 攻撃への対策
 * クリックジャッキング攻撃への対策
@@ -68,7 +69,7 @@ opHardeningPlugin -- OpenPNE 3 に対して追加のセキュリティ対策を�
 2-1. JSON_hijacking_protection
 ------------------------------
 
-:保護対象の攻撃: JSON ハイジャック攻撃
+:保護対象の攻撃: JSON ハイジャック攻撃 (他、 JSON からの情報漏洩に繋がる攻撃も含む)
 :保護対象の脅威: 情報漏洩
 :対策の種類: 防止
 
@@ -90,7 +91,16 @@ Android 標準ブラウザの多くのバージョンでは、他の主要ブラ
 
 この条件を満たさなかった場合、 ``Your request is denied. Please retry to request with "X-Requested-With" header.`` といったエラーを残し、本来のレスポンスの送信を拒否します。
 
-2-1-3. Internet Explorer 8 以前に対する対策内容についての解説
+2-1-3. Internet Explorer 9 および 10 においてクロスドメインの JSON の内容が読み取れる問題への対策について解説
+`````````````````````````````````````````````````````````````````````````````````````````````````````````````
+
+Internet Explorer 9 および 10 においては、 http://web.nvd.nist.gov/view/vuln/detail?vulnId=CVE-2013-1297 にて公表されている、クロスドメインの JSON の内容を読み取ることにできる問題が、仕様であるとして修正されていません。
+
+そこで、 Internet Explorer 9 および 10 で application/json のコンテンツをブラウジングした際にも、「2-1-2. Android 標準ブラウザに対する対策内容についての解説」にて解説したような対策が適用されます。
+
+なお、 この問題については、機密情報を含む JSON コンテンツのレスポンスヘッダとして X-Content-Type-Options: nosniff を送信することでも対策となります。したがって、この「JSON_hijacking_protection」を無効にした場合でも、後述する「disable_content_sniffing」が有効であれば、この問題の影響を受けることはなくなります。
+
+2-1-4. Internet Explorer 8 以前に対する対策内容についての解説
 `````````````````````````````````````````````````````````````
 
 Internet Explorer 8 以前では、 JSON コンテンツを UTF-7 で記述された JavaScript として外部から読み込むことで、 JSON ハイジャック攻撃が成立する問題があります。
