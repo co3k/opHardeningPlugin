@@ -46,8 +46,7 @@ class opJSONHijackingProtectionSafeguard extends opSafeguard
 
   public function needToProtectFromJSONHijack($request)
   {
-    $pathArray = $request->getPathInfoArray();
-    $userAgent = isset($pathArray['USER_AGENT']) ? $pathArray['USER_AGENT'] : '';
+    $userAgent = $request->getHttpHeader('User-Agent');
 
     return (!$request->isXmlHttpRequest() && stripos($userAgent, 'android') && $request->getMethod() === sfRequest::GET);
   }

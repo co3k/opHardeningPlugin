@@ -24,7 +24,7 @@ $dispatcher = new sfEventDispatcher();
 $androidUserAgent = 'Mozilla/5.0 (Linux; U; Android 2.2.1; ja-jp; IS03 Build/S3251) AppleWebKit/533.1 (KHTML, like Gecko) Version/4.0 Mobile Safari/533.1';
 $ieUserAgent = 'Mozilla/4.0 (compatible; MSIE 8.0; Windows NT 6.1; Trident/4.0)';
 
-$_SERVER['USER_AGENT'] = $androidUserAgent;
+$_SERVER['HTTP_USER_AGENT'] = $androidUserAgent;
 $context->getRequest()->setMethod(sfWebRequest::GET);
 
 // --
@@ -64,7 +64,7 @@ $t->is($result, 'DUMMY', 'Returns raw response if the request with XHR header');
 // --
 
 $context->getRequest()->setMethod(sfWebRequest::GET);
-$_SERVER['USER_AGENT'] = $ieUserAgent;
+$_SERVER['HTTP_USER_AGENT'] = $ieUserAgent;
 $_SERVER['HTTP_X_REQUESTED_WITH'] = '';
 $result = $safeguard->apply(new sfEvent($response, 'whatever.event_name'), $response->getContent());
 
